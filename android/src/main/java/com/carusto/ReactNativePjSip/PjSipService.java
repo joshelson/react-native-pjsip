@@ -556,6 +556,7 @@ public class PjSipService extends Service {
         }
 
         cfg.getMediaConfig().getTransportConfig().setQosType(pj_qos_type.PJ_QOS_TYPE_VOICE);
+        cfg.getMediaConfig().setSrtpUse(pjmedia_srtp_use.PJMEDIA_SRTP_MANDATORY);
 
         cfg.getVideoConfig().setAutoShowIncoming(true);
         cfg.getVideoConfig().setAutoTransmitOutgoing(true);
