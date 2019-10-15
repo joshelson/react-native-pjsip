@@ -48,7 +48,7 @@ import org.pjsip.pjsua2.VideoDevInfo;
 import org.pjsip.pjsua2.pj_qos_type;
 import org.pjsip.pjsua2.pjmedia_srtp_use;
 import org.pjsip.pjsua2.pjmedia_orient;
-import org.pjsip.pjsua2.pjmedia_srtp_keying_method;
+// import org.pjsip.pjsua2.pjmedia_srtp_keying_method;
 import org.pjsip.pjsua2.pjsip_inv_state;
 import org.pjsip.pjsua2.pjsip_status_code;
 import org.pjsip.pjsua2.pjsip_transport_type_e;
@@ -562,8 +562,8 @@ public class PjSipService extends Service {
         cfg.getMediaConfig().setSrtpUse(pjmedia_srtp_use.PJMEDIA_SRTP_MANDATORY);
         cfg.getMediaConfig().setSrtpSecureSignaling(1);  // https://www.pjsip.org/pjmedia/docs/html/group__PJMEDIA__TRANSPORT__SRTP.htm
 
-        cfg.getMediaConfig().getSrtpOpt().getKeyings().clear();
-        cfg.getMediaConfig().getSrtpOpt().getKeyings().add(pjmedia_srtp_keying_method.PJMEDIA_SRTP_KEYING_SDES.swigValue());
+        // cfg.getMediaConfig().getSrtpOpt().getKeyings().clear();
+        // cfg.getMediaConfig().getSrtpOpt().getKeyings().add(pjmedia_srtp_keying_method.PJMEDIA_SRTP_KEYING_SDES.swigValue());
 
         cfg.getVideoConfig().setAutoShowIncoming(true);
         cfg.getVideoConfig().setAutoTransmitOutgoing(true);
