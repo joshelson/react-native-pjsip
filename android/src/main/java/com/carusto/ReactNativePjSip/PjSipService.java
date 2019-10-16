@@ -560,7 +560,7 @@ public class PjSipService extends Service {
         cfg.getMediaConfig().getTransportConfig().setQosType(pj_qos_type.PJ_QOS_TYPE_VOICE);
 
         cfg.getMediaConfig().setSrtpUse(pjmedia_srtp_use.PJMEDIA_SRTP_MANDATORY);
-        cfg.getMediaConfig().setSrtpSecureSignaling(1);  // https://www.pjsip.org/pjmedia/docs/html/group__PJMEDIA__TRANSPORT__SRTP.htm
+        cfg.getMediaConfig().setSrtpSecureSignaling(0);  // https://www.pjsip.org/pjmedia/docs/html/group__PJMEDIA__TRANSPORT__SRTP.htm
 
         // cfg.getMediaConfig().getSrtpOpt().getKeyings().clear();
         // cfg.getMediaConfig().getSrtpOpt().getKeyings().add(pjmedia_srtp_keying_method.PJMEDIA_SRTP_KEYING_SDES.swigValue());
