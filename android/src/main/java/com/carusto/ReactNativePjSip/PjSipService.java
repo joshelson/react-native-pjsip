@@ -1,10 +1,10 @@
 package com.carusto.ReactNativePjSip;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
+// import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -260,7 +260,7 @@ public class PjSipService extends Service {
             });
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Intent notificationIntent = new Intent(this, PjSipService.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
