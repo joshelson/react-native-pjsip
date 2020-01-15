@@ -2,7 +2,7 @@ package com.carusto.ReactNativePjSip;
 
 import android.app.Activity;
 import android.content.Intent;
-
+import androidx.core.content.ContextCompat;
 import com.facebook.react.bridge.*;
 
 public class PjSipModule extends ReactContextBaseJavaModule {
@@ -16,6 +16,8 @@ public class PjSipModule extends ReactContextBaseJavaModule {
         if (receiver == null) {
             receiver = new PjSipBroadcastReceiver(context);
             this.getReactApplicationContext().registerReceiver(receiver, receiver.getFilter());
+            Intent socketIntent = new Intent(context.getApplicationContext(), PjSipService.class);
+            ContextCompat.startForegroundService(context.getApplicationContext(), socketIntent);
         } else {
             receiver.setContext(context);
         }

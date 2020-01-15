@@ -1,11 +1,7 @@
 package com.carusto.ReactNativePjSip;
-
 import android.app.Notification;
-// import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import androidx.core.app.NotificationCompat;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,16 +19,11 @@ import android.os.Process;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-
 import com.carusto.ReactNativePjSip.dto.AccountConfigurationDTO;
 import com.carusto.ReactNativePjSip.dto.CallSettingsDTO;
 import com.carusto.ReactNativePjSip.dto.ServiceConfigurationDTO;
 import com.carusto.ReactNativePjSip.dto.SipMessageDTO;
 import com.carusto.ReactNativePjSip.utils.ArgumentUtils;
-
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
-
 import org.json.JSONObject;
 import org.pjsip.pjsua2.AccountConfig;
 import org.pjsip.pjsua2.AudDevManager;
@@ -50,19 +41,17 @@ import org.pjsip.pjsua2.StringVector;
 import org.pjsip.pjsua2.TransportConfig;
 import org.pjsip.pjsua2.CodecInfoVector;
 import org.pjsip.pjsua2.CodecInfo;
-import org.pjsip.pjsua2.VideoDevInfo;
 import org.pjsip.pjsua2.pj_qos_type;
 import org.pjsip.pjsua2.pjmedia_srtp_use;
 import org.pjsip.pjsua2.pjmedia_orient;
-// import org.pjsip.pjsua2.pjmedia_srtp_keying_method;
 import org.pjsip.pjsua2.pjsip_inv_state;
 import org.pjsip.pjsua2.pjsip_status_code;
 import org.pjsip.pjsua2.pjsip_transport_type_e;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 
 public class PjSipService extends Service {
 
@@ -124,6 +113,24 @@ public class PjSipService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        startForegroundService();
+    }
+    private void startForegroundService() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+            Notification notification = new NotificationCompat.Builder(this, "Renegade Notification Channel")
+                    .setContentTitle("Renegade Services")
+//                .setContentText("Content Text Here")
+                    .setSmallIcon(android.R.drawable.ic_menu_call)
+                    .setContentIntent(pendingIntent)
+                    .build();
+            startForeground(1, notification);
+        }
     }
 
     private void load() {
@@ -258,19 +265,6 @@ public class PjSipService extends Service {
                     handle(intent);
                 }
             });
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Intent notificationIntent = new Intent(this, PjSipService.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-
-            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Voice Foreground Service")
-                .setContentText("")
-                .setContentIntent(pendingIntent)
-                .build();
-            startForeground(1, notification);
         }
 
         return START_NOT_STICKY;
